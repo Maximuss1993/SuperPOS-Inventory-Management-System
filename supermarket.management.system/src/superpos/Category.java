@@ -92,8 +92,7 @@ public class Category extends JFrame {
 				
 				d.addRow(v2);
 			}
-			
-						
+				
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -103,8 +102,6 @@ public class Category extends JFrame {
 		}
 						
 	}
-	
-	
 	
 	@SuppressWarnings("serial")
 	public Category() {
