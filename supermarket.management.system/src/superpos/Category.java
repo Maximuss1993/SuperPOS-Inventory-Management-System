@@ -91,7 +91,11 @@ public class Category extends JFrame {
 				}
 				d.addRow(v2);
 			}
+<<<<<<< HEAD
 									
+=======
+				
+>>>>>>> branch 'main' of https://github.com/Maximuss1993/SuperPOS-Inventory-Management-System.git
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
