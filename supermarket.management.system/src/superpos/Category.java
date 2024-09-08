@@ -321,9 +321,7 @@ public class Category extends JFrame {
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
-			
 			}
-		
 		});
 		panel_1.add(btnEdit);
 		
