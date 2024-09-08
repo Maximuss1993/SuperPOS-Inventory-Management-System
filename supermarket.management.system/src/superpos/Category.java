@@ -89,22 +89,15 @@ public class Category extends JFrame {
 					v2.add(rs.getString("category"));
 					v2.add(rs.getString("status"));
 				}
-				
 				d.addRow(v2);
 			}
-			
-						
+									
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-						
 	}
-	
-	
 	
 	@SuppressWarnings("serial")
 	public Category() {
@@ -271,8 +264,7 @@ public class Category extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String category = txtCat.getText();
 				String status = txtStatus.getSelectedItem().toString();
-			
-				// connecting to database
+
 				try {
 					Class.forName("com.mysql.jdbc.Driver");
 					connection = DriverManager.getConnection("jdbc:mysql://localhost/superpos", "eclipseSQL", "admin");
@@ -287,10 +279,8 @@ public class Category extends JFrame {
 					txtCat.requestFocus();
 					
 				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -307,10 +297,8 @@ public class Category extends JFrame {
 				DefaultTableModel d1 = (DefaultTableModel) categoryTable.getModel();
 				int selectIndex = categoryTable.getSelectedRow();
 				
-				//getting id from selected row
 				int id = Integer.parseInt(d1.getValueAt(selectIndex, 0).toString());  
 				
-				//getting category and status from selected row in table
 				String category = txtCat.getText();
 				String status = txtStatus.getSelectedItem().toString();
 				
@@ -327,13 +315,10 @@ public class Category extends JFrame {
 					txtCat.setText("");
 					txtStatus.setSelectedIndex(-1);
 					txtCat.requestFocus();
-				
-								
+												
 				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			
@@ -343,6 +328,36 @@ public class Category extends JFrame {
 		panel_1.add(btnEdit);
 		
 		JButton btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DefaultTableModel d1 = (DefaultTableModel) categoryTable.getModel();
+				int selectIndex = categoryTable.getSelectedRow();
+				int id = Integer.parseInt(d1.getValueAt(selectIndex, 0).toString());  
+				
+				int dialogResult = JOptionPane.showConfirmDialog(null, "Do you want to delete selected category?", "Warning", JOptionPane.YES_NO_OPTION);
+				
+				if (dialogResult == JOptionPane.YES_OPTION) {
+					try {
+						Class.forName("com.mysql.jdbc.Driver");
+						connection = DriverManager.getConnection("jdbc:mysql://localhost/superpos", "eclipseSQL", "admin");
+						pst = connection.prepareStatement("DELETE FROM category WHERE id=?");
+						pst.setInt(1, id);
+						pst.executeUpdate();
+						table_update();
+						JOptionPane.showMessageDialog(null, "Category deleted!");
+						txtCat.setText("");
+						txtStatus.setSelectedIndex(-1);
+						txtCat.requestFocus();
+					
+					} catch (ClassNotFoundException e1) {
+						e1.printStackTrace();
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}	
+		});
+		
 		sl_panel_1.putConstraint(SpringLayout.NORTH, btnDelete, 215, SpringLayout.NORTH, panel_1);
 		sl_panel_1.putConstraint(SpringLayout.WEST, btnDelete, 14, SpringLayout.EAST, btnEdit);
 		sl_panel_1.putConstraint(SpringLayout.SOUTH, btnDelete, -35, SpringLayout.SOUTH, panel_1);
